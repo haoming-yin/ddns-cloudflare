@@ -1,6 +1,9 @@
+""" Invoke collection -- root"""
 from invoke import Collection
 from tasks import test
+from tasks import lint
 
-ns = Collection() # root namespace
+ns = Collection()  # pylint: disable=invalid-name
 
-ns.add_collection(Collection.from_module(test))
+ns.add_collection(test.namespace)
+ns.add_collection(lint.namespace)

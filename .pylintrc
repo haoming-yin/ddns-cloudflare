@@ -1,0 +1,5 @@
+[MASTER]
+disable=dangerous-default-value,duplicate-code,broad-except
+docstring-quote=double
+string-quote=double
+triple-quote=double
