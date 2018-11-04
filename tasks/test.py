@@ -16,3 +16,4 @@ def test_all(_):
 
 namespace = Collection("test")  # pylint: disable=invalid-name
 namespace.add_task(hello_world)
+namespace.add_task(test_all, "all")

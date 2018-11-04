@@ -105,3 +105,7 @@ venv.bak/
 
 # vscode 
 .vscode/
+
+# env file
+.env.local*
+.env.prod*
