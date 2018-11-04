@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage("Demo step") {
             steps {
-                sh "printenv"
+                sh "printenv | grep 'JENKINS_'"
             }
         }
     }
