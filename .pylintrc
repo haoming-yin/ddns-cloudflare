@@ -1,5 +1,7 @@
 [MASTER]
-disable=dangerous-default-value,duplicate-code,broad-except
+disable=dangerous-default-value,duplicate-code,broad-except,no-member
+logging-fstring-interpolation,inconsistent-return-statements
+
 docstring-quote=double
 string-quote=double
 triple-quote=double
