@@ -1,7 +1,6 @@
 """ A cloudflare related help module"""
 
 import os
-import json
 import CloudFlare
 from helper import logger
 
@@ -72,7 +71,7 @@ def get_dns_records(*, zone_name=None, zone_id=None, record_type=None, name=None
     return records
 
 
-def set_dns_record(*, zone_name=None, zone_id=None, record_type, name, content, ttl=1, priority=10):
+def set_dns_record(*, zone_name=None, zone_id=None, record_type, name, content, ttl=1):
     """ Create a DNS record if it's not existed, otherwise update the existing one"""
     client = _get_client()
     zone_id = zone_id if zone_id else get_zone(zone_name=zone_name)["id"]
@@ -91,7 +90,7 @@ def set_dns_record(*, zone_name=None, zone_id=None, record_type, name, content, 
     data["content"] = content
     data["ttl"] = ttl
 
-    if len(records) > 0:
+    if records:
         try:
             res = client.zones.dns_records.put(
                 identifier1=zone_id, identifier2=records[0]["id"], data=data)
