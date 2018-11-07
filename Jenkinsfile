@@ -1,12 +1,24 @@
 pipeline {
     agent {
-        label "pi"
+        label "master-docker"
     }
 
     stages {
-        stage("Demo step") {
+        stage("Install Dependencies") {
             steps {
-                sh "printenv | grep 'JENKINS_'"
+                sh "pip install -r requirements.txt"
+            }
+        }
+
+        stage("Linting") {
+            steps {
+                sh "inv lint"
+            }
+        }
+
+        stage("Unit Test") {
+            steps {
+                sh "inv test"
             }
         }
     }
