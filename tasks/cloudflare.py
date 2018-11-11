@@ -19,16 +19,21 @@ def sync_record(_, zone_name, record_type, name, content=None, ttl=1):
     """ Sync a DNS record"""
     if content is None:
         content = ip.get_public_ip()
+    record_meta = f"[{record_type}] {name}: {content}"
+
+    if content is None:
+        print(f"Failed to fetch local machine public IP. Skip - {record_meta}")
+        return
 
     params = dict(zone_name=zone_name, record_type=record_type, name=name, content=content)
     if cloudflare.get_dns_records(**params):  # if a record's content is not identical in cloud
-        print(f"Not need to sync - [{record_type}] {name}: {content} - is identical in cloud")
+        print(f"Not need to sync - {record_meta} - is identical with Cloudflare")
     else:
-        print(f"Start sync - [{record_type}] {name}: {content}")
+        print(f"Start sync - {record_meta}")
         if cloudflare.set_dns_record(**params, ttl=ttl):
-            print(f"Sync completed - [{record_type}] {name}: {content}")
+            print(f"Sync completed - {record_meta}")
         else:
-            print(f"Sync failed - [{record_type}] {name}: {content}")
+            print(f"Sync failed - {record_meta}")
 
 
 @task(default=True)
