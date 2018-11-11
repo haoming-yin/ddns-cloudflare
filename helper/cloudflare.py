@@ -103,4 +103,4 @@ def set_dns_record(*, zone_name=None, zone_id=None, record_type, name, content, 
         except Exception as err:
             LOG.error(f"[POST] zones/{zone_id}/dns_records/- ${err} - api call failed")
 
-    print(res)
+    return res
