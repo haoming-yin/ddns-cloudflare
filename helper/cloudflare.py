@@ -92,11 +92,9 @@ def set_dns_record(*, zone_name=None, zone_id=None, record_type, name, content, 
 
     if records:
         try:
-            res = client.zones.dns_records.put(
-                identifier1=zone_id, identifier2=records[0]["id"], data=data)
+            res = client.zones.dns_records.put(identifier1=zone_id, identifier2=records[0]["id"], data=data)
         except Exception as err:
-            LOG.error(
-                f"[PUT] zones/{zone_id}/dns_records/{records[0]['id']} - ${err} - api call failed")
+            LOG.error(f"[PUT] zones/{zone_id}/dns_records/{records[0]['id']} - ${err} - api call failed")
     else:
         try:
             res = client.zones.dns_records.post(identifier1=zone_id, data=data)

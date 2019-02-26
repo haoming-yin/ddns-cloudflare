@@ -11,7 +11,7 @@ def load_config(file_path="./config.yml"):
     """ Load config file"""
     print(f"Loading config file '{file_path}' ...")
     with open(file_path, "r") as file:
-        return yaml.load(file)
+        return yaml.load(file, Loader=yaml.Loader)
 
 
 @task
@@ -37,9 +37,9 @@ def sync_record(_, zone_name, record_type, name, content=None, ttl=1):
 
 
 @task(default=True)
-def sync(ctx):
+def sync(ctx, profile="default"):
     """ Sync DNS records"""
-    records = load_config()["records"]
+    records = load_config().get(profile, [])
     print("Config file has been loaded")
 
     for record in records:

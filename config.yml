@@ -1,4 +1,4 @@
-records:
+default:
   - zone_name: "haomingyin.com"
     record_type: "A"
     name: "*.haomingyin.com"

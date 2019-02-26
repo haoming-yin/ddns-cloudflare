@@ -19,21 +19,12 @@ pipeline {
             }
         }
 
-        stage("Linting") {
-            steps {
-                sh "inv lint"
-            }
-        }
-
-        stage("Unit Test") {
-            steps {
-                sh "inv test"
-            }
-        }
-
         stage("Sync Records") {
+            when {
+                branch "master"
+            }
             steps {
-                sh "inv cf.sync"
+                sh "inv cf.sync --profile=default"
             }
         }
     }
