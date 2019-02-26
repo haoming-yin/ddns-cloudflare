@@ -3,7 +3,7 @@
 import requests
 from unittest import TestCase
 from unittest.mock import patch
-from helper.ip import get_public_ip
+from lib.ip import get_public_ip
 
 
 class MockResponse:

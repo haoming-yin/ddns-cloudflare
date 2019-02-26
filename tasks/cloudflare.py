@@ -2,7 +2,8 @@
 
 import yaml
 from invoke import Collection, task
-from helper import cloudflare, ip, logger
+
+from lib import cloudflare, ip, logger
 
 LOG = logger.get_logger()
 

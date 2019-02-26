@@ -1,7 +1,7 @@
 """ Invoke collection -- lint"""
 from invoke import task, Collection
 
-DIRS = ["helper", "tasks"]
+DIRS = ["lib", "tasks"]
 
 
 @task(help={"path": "Path that pylint runs against to."})
