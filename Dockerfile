@@ -4,6 +4,6 @@ RUN mkdir -p /usr/src/ddns
 WORKDIR /usr/src/ddns
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt -y
+RUN pip install -r requirements.txt
 
 CMD ["python", "ddns.py"]
