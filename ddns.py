@@ -9,6 +9,6 @@ interval = load_config(profile=profile).get("interval", 0)
 
 while True:
     run(["inv", "cf.sync", f"--profile={profile}"], check=False)
-    if interval == 0:
+    if not interval:
         break
     time.sleep(interval)

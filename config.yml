@@ -11,7 +11,7 @@ ghost:
       record_type: "A"
       name: "ghost"
 test:
-  interval:
+  interval: 20
   records:
     - zone_name: "haomingyin.com"
       record_type: "TXT"
