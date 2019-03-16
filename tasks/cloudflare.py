@@ -8,7 +8,7 @@ from lib import cloudflare, ip, utilities, error
 
 
 @task
-def sync_record(_, zone_name, record_type, name, content=None, ttl=1):
+def sync_record(_, zone_name, record_type, name, content=None, ttl=1, proxied=False):
     """ Sync a DNS record"""
     try:
         if content is None:
@@ -20,11 +20,12 @@ def sync_record(_, zone_name, record_type, name, content=None, ttl=1):
             return
 
         params = dict(zone_name=zone_name, record_type=record_type, name=name, content=content)
-        if cloudflare.get_dns_records(**params):  # if a record's content is not identical in cloud
+        records = cloudflare.get_dns_records(**params)
+        if records and records[0]["proxied"] == proxied: # if a record's content is not identical in cloud
             print(f"Not need to sync - {record_meta} - is identical with Cloudflare")
         else:
             print(f"Start sync - {record_meta}")
-            if cloudflare.set_dns_record(**params, ttl=ttl):
+            if cloudflare.set_dns_record(**params, ttl=ttl, proxied=proxied):
                 print(f"Sync completed - {record_meta}")
             else:
                 print(f"Sync failed - {record_meta}")
@@ -51,7 +52,8 @@ def sync(ctx, config_path="./config.yml", profile="default"):
                 name = record["name"]
                 content = record.get("content")
                 ttl = record.get("ttl", 1)
-                sync_record(ctx, zone_name, record_type, name, content, ttl)
+                proxied = record.get("proxied", False)
+                sync_record(ctx, zone_name, record_type, name, content, ttl, proxied)
             except KeyError as err:
                 print(f"Record in config.yml must contain: [zone_name, record_type, name] - {err}")
     except error.CloudflareError as err:

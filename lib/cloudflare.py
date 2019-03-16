@@ -103,7 +103,7 @@ def get_dns_records(*, zone_name: str, record_type: str, name: str, content: str
     return _get(f"zones/{zone_id}/dns_records", params=params)
 
 
-def set_dns_record(*, zone_name: str, record_type: str, name: str, content: str, ttl=1):
+def set_dns_record(*, zone_name: str, record_type: str, name: str, content: str, ttl=1, proxied=False):
     """ Create a DNS record if it's not existed, otherwise update the existing one.
     Args:
         zone_name: zone name.
@@ -111,6 +111,7 @@ def set_dns_record(*, zone_name: str, record_type: str, name: str, content: str,
         name: record name.
         content: content that to be updated.
         ttl: time to live, default to 2 minutes.
+        proxied: if the DNS is proxied by cloudflare.
     """
     _validate_record_type(record_type, check=True)
 
