@@ -8,6 +8,7 @@ profile = os.getenv("DDNS_PROFILE", "default")
 interval = load_config(profile=profile).get("interval", 0)
 
 while True:
+    run(["git", "pull"], check=False)
     run(["inv", "cf.sync", f"--profile={profile}"], check=False)
     if not interval:
         break
