@@ -117,7 +117,7 @@ def set_dns_record(*, zone_name: str, record_type: str, name: str, content: str,
 
     records = get_dns_records(zone_name=zone_name, record_type=record_type, name=name)
 
-    data = dict(type=record_type, name=name, content=content, ttl=ttl)
+    data = dict(type=record_type, name=name, content=content, ttl=ttl, proxied=proxied)
     zone_id = get_zone(zone_name=zone_name)["id"]
 
     if records:
