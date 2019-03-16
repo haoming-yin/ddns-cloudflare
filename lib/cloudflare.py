@@ -94,7 +94,7 @@ def get_dns_records(*, zone_name: str, record_type: str, name: str, content: str
         params["type"] = record_type
     if name:
         params["name"] = name
-        if not re.match(rf".*\.{zone_name}", name):
+        if name != zone_name and not re.match(rf".*\.{zone_name}", name):
             params["name"] = f"{name}.{zone_name}"
     if content:
         params["content"] = content
