@@ -109,3 +109,5 @@ venv.bak/
 # env file
 .env.local*
 .env.prod*
+
+.idea/

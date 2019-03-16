@@ -3,3 +3,4 @@ disable=dangerous-default-value,duplicate-code,broad-except,no-member,logging-fs
 docstring-quote=double
 string-quote=double
 triple-quote=double
+max-line-length=120

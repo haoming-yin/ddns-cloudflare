@@ -1,4 +1,22 @@
 default:
-  - zone_name: "haomingyin.com"
-    record_type: "A"
-    name: "*.haomingyin.com"
+  interval: 180 # in seconds
+  records:
+    - zone_name: "haomingyin.com"
+      record_type: "A"
+      name: "*.haomingyin.com"
+ghost:
+  interval: 60
+  records:
+    - zone_name: "haomingyin.com"
+      record_type: "A"
+      name: "ghost"
+test:
+  interval:
+  records:
+    - zone_name: "haomingyin.com"
+      record_type: "TXT"
+      name: "ddns-test.haomingyin.com"
+      content: "test txt record"
+    - zone_name: "haomingyin.com"
+      record_type: "A"
+      name: "test"
