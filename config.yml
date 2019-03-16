@@ -10,6 +10,9 @@ ghost:
     - zone_name: "haomingyin.com"
       record_type: "A"
       name: "ghost"
+    - zone_name: "haomingyin.com"
+      record_type: "A"
+      name: "haomingyin.com"
 test:
   interval: 20
   records:
