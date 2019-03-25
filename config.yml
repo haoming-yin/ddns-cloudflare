@@ -5,7 +5,7 @@ default:
       record_type: "A"
       name: "*.haomingyin.com"
 ghost:
-  interval: 60
+  interval: 180
   records:
     - zone_name: "haomingyin.com"
       record_type: "A"
