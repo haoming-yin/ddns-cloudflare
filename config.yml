@@ -1,5 +1,5 @@
 default:
-  interval: 180 # in seconds
+  interval: 10 # in seconds
   records:
     - zone_name: "haomingyin.com"
       record_type: "A"
