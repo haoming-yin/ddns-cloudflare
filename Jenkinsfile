@@ -1,31 +1,30 @@
 pipeline {
     agent {
-        label "master-docker"
+        label "master"
     }
 
     environment {
         X_AUTH_KEY = credentials('cloudflare-api-key')
         X_AUTH_EMAIL = credentials('admin-email')
+        DDNS_PROFILE = "default"
+        IMAGE_NAME = "haomingyin/script.ddns-cloudflare"
     }
 
-    triggers {
-        cron('H H * * *')
-    }
+    // triggers {
+    //     cron('H H * * *')
+    // }
 
     stages {
-        stage("Install Dependencies") {
-            steps {
-                sh "pip install -r requirements.txt"
+        stage("Build") {
+            docker.withRegistry("https://index.docker.io/v1/", "docker-hub-credential") {
+                def image = docker.build("${env.IMAGE_NAME}:${env.BUILD_ID}")
+                image.push()
+                image.push('latest')
             }
         }
 
-        stage("Sync Records") {
-            when {
-                branch "master"
-            }
-            steps {
-                sh "inv cf.sync --profile=default"
-            }
+        stage("Deploy") {
+            sh "docker run -t --rm ${env.IMAGE_NAME}:latest"
         }
     }
  
