@@ -10,28 +10,16 @@ pipeline {
         IMAGE_NAME = "haomingyin/script.ddns-cloudflare"
     }
 
-    // triggers {
-    //     cron('H H * * *')
-    // }
-
     stages {
-        stage("Build") {
-            steps {
-                script {
-                    docker.withRegistry("https://index.docker.io/v1/", "docker-hub-credential") {
-                        def image = docker.build("${env.IMAGE_NAME}:${env.BUILD_ID}")
-                        image.push()
-                        image.push('latest')
-                    }
-                }
-                
-            }
-        }
-
         stage("Deploy") {
+            when {
+                branch "master"
+            }
             steps {
                 script {
-                    sh "docker run -t --rm ${env.IMAGE_NAME}:latest"
+                    sh "docker pull ${env.IMAGE_NAME}:latest"
+                    sh "docker kill ${env.IMAGE_NAME} || true"
+                    sh "docker run -t --rm --name ${env.IMAGE_NAME} ${env.IMAGE_NAME}:latest"
                 }
             }
         }
