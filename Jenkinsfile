@@ -16,15 +16,19 @@ pipeline {
 
     stages {
         stage("Build") {
-            docker.withRegistry("https://index.docker.io/v1/", "docker-hub-credential") {
-                def image = docker.build("${env.IMAGE_NAME}:${env.BUILD_ID}")
-                image.push()
-                image.push('latest')
+            steps {
+                docker.withRegistry("https://index.docker.io/v1/", "docker-hub-credential") {
+                    def image = docker.build("${env.IMAGE_NAME}:${env.BUILD_ID}")
+                    image.push()
+                    image.push('latest')
+                }
             }
         }
 
         stage("Deploy") {
-            sh "docker run -t --rm ${env.IMAGE_NAME}:latest"
+            steps {
+                sh "docker run -t --rm ${env.IMAGE_NAME}:latest"
+            }
         }
     }
  
