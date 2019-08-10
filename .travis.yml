@@ -1,0 +1,17 @@
+sudo: required
+language: python
+services:
+- docker
+env:
+  global:
+  - IMAGE_NAME=haomingyin/script.ddns-cloudflare
+  - DDNS_PROFILE=default
+  # env as secrets: DOCKER_USERNAME, DOCKER_PASSWORD, X_AUTH_EMAIL, X_AUTH_KEY
+
+before_deploy:
+  - docker build --pull --tag "$IMAGE_NAME" .
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${TRAVIS_BUILD_NUMBER}"
+  - docker push "${IMAGE_NAME}:latest"
+  - docker push "${IMAGE_NAME}:${TRAVIS_BUILD_NUMBER}"
