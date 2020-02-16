@@ -24,3 +24,10 @@ test:
     - zone_name: "haomingyin.com"
       record_type: "A"
       name: "test"
+ iaceit:
+  interval: 180
+  records:
+    - zone_name: "iaceit.com"
+      record_type: "A"
+      name: "quiz"
+      proxied: true
